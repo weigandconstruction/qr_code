@@ -29,6 +29,7 @@ qr_code-*.tar
 .envs
 .vimrc
 tmp/
+.DS_Store
 
 tags
 .projections.json
