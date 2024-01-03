@@ -26,7 +26,7 @@ defmodule QRTest do
       |> QRCode.save(wrong_img_format)
 
       settings = %QRCode.Render.SvgSettings{
-        image: {wrong_img_format, 100}
+        image: {wrong_img_format, :fill}
       }
 
       text

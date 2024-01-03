@@ -28,7 +28,7 @@ defmodule QRCodeTest do
         |> QRCode.render()
         |> QRCode.save("/")
 
-      assert rv == {:error, :eisdir}
+      assert rv == {:error, :eexist}
     end
 
     test "should fail to save qr code to file" do

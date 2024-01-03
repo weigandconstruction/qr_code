@@ -3,7 +3,7 @@ defmodule QRCode.Render.SvgSettings do
   Settings structure for Svg.
   """
 
-  @type image :: ExMaybe.t({binary(), pos_integer()})
+  @type image :: ExMaybe.t({binary(), :fill | :inset})
   @type background_opacity :: ExMaybe.t(float())
   @type background_color :: String.t() | tuple
   @type qrcode_color :: String.t() | tuple

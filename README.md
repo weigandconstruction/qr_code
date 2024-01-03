@@ -60,23 +60,22 @@ There are several options to change the appearance of svg or png:
 ### Svg settings
 
 ```elixir
-| Option             | Type                   | Default value | Description                         |
-|--------------------|------------------------|---------------|-------------------------------------|
-| scale              | positive integer       | 10            | changes size of rendered QR code    |
-| background_opacity | nil or 0.0 <= x <= 1.0 | nil           | sets background opacity of svg      |
-| background_color   | string or {r, g, b}    | "#ffffff"     | sets background color of svg        |
-| qrcode_color       | string or {r, g, b}    | "#000000"     | sets color of QR                    |
-| image              | {string, size} or nil  | nil           | puts the image to the center of svg |
-| structure          | :minify or :readable   | :minify       | minifies or makes readable svg file |
+| Option             | Type                            | Default value | Description                         |
+|--------------------|---------------------------------|---------------|-------------------------------------|
+| scale              | positive integer                | 10            | changes size of rendered QR code    |
+| background_opacity | nil or 0.0 <= x <= 1.0          | nil           | sets background opacity of svg      |
+| background_color   | string or {r, g, b}             | "#ffffff"     | sets background color of svg        |
+| qrcode_color       | string or {r, g, b}             | "#000000"     | sets color of QR                    |
+| image              | {string, :fill | :inset} or nil | nil           | puts the image to the center of svg |
+| structure          | :minify or :readable            | :minify       | minifies or makes readable svg file |
 ```
 
 Notes:
 
-- `:image` inserts image `/path/to/image.type` with `size`, this number must be positive integer.
-  There are a few limitations:
+- `:image` inserts image `/path/to/image.type` with `fit`, where fit is either `:fill` or `:inset`. The logo will fill a
+  white square in the center of the image. The image size will automatically be determined based on the size of the code and error correction level. `:inset` will create a 1-rect border around the image while `:fill` will fill the entire square.
 
-  - The only image formats SVG software must support are JPEG, PNG, and other SVG files, see [MDN](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/image).
-  - Pay attention to the `size` of the embedded image, if you put it too large, it may not be readable by the QR reader.
+  The only image formats SVG software must support are JPEG, PNG, and other SVG files, see [MDN](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/image).
 
 - By `:structure` you can minify a final size of svg file or make it readable if you need. In the readable case, the file size can be slightly larger and the svg code is structured and thus more clearer.
 
@@ -84,13 +83,13 @@ Let's see an example with embedded image below:
 
 ```elixir
   iex> alias QRCode.Render.SvgSettings
-  iex> image = {"/docs/elixir.svg", 100}
+  iex> image = {"/docs/elixir.svg", :fill}
   iex> qr_color = {17, 170, 136}
   iex> svg_settings = %SvgSettings{qrcode_color: qr_color, image: image, structure: :readable}
   %QRCode.Render.SvgSettings{
     background_color: "#ffffff",
     background_opacity: nil,
-    image: {"/docs/elixir.svg", 100},
+    image: {"/docs/elixir.svg", :fill},
     qrcode_color: {17, 170, 136},
     scale: 10,
     structure: :readable

@@ -97,8 +97,8 @@ defmodule SvgTest do
       rv =
         @dst_to_file
         |> File.stream!()
-        |> Stream.take(2)
-        |> Enum.at(1)
+        |> Stream.take(3)
+        |> Enum.at(-1)
 
       assert Regex.match?(@rgx_bg_opacity, rv)
     end
@@ -116,7 +116,7 @@ defmodule SvgTest do
       |> QRCode.save(png_image)
 
       settings = %SvgSettings{
-        image: {png_image, 100},
+        image: {png_image, :fill},
         structure: :readable
       }
 
@@ -146,7 +146,7 @@ defmodule SvgTest do
       rv =
         @dst_to_file
         |> File.stream!()
-        |> Stream.take(3)
+        |> Stream.take(4)
         |> Enum.at(-1)
 
       assert Regex.match?(@rgx_qr_color, rv)
